@@ -1,4 +1,4 @@
-import { createTheme } from "@material-ui/core/styles";
+import { createMuiTheme } from '@material-ui/core/styles';
 
 export const colors = {
   red: "rgb(239, 56, 41)",
@@ -10,7 +10,7 @@ export const colors = {
   ligtherGrey: "rgb(238, 238, 238)",
 };
 
-export const theme = createTheme({
+export const theme = createMuiTheme({
   palette: {
     secondary: {
       light: "rgb(255, 121, 97)",

@@ -1,10 +1,10 @@
 import React from "react";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import NavBar from "components/NavBar/NavBar";
-import CreateBundle from "pages/CreateBundle";
 import { makeStyles } from "@material-ui/core/styles";
 import { ItemProvider } from "providers/ItemProvider";
 import { theme } from "styles/theme";
+import { BrowserRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -20,14 +20,15 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   return (
+    <BrowserRouter>
     <MuiThemeProvider theme={theme}>
       <ItemProvider>
         <div className={classes.background}>
           <NavBar></NavBar>
-          <CreateBundle></CreateBundle>
         </div>
       </ItemProvider>
     </MuiThemeProvider>
+    </BrowserRouter>
   );
 }
 
