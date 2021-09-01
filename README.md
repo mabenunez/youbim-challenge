@@ -7,9 +7,6 @@ Clone this repository and run
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Visit deployed site:
-https://youbim-challenge-e6epjlpcs-mariabnhernandez.vercel.app/
-
 ## Decisions:
 
 -I used TypeScript to keep everything tidy, since there are forms and different objects being manipulated and the render of some components depend on the accuracy of the object passed.
