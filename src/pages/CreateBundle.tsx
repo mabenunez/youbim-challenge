@@ -36,11 +36,11 @@ function CreateBundle() {
   const classes = useStyles();
   const itemsState = useContext(ItemsContext);
 
-  const addToBundle = (id: string) => {
+  const addToBundle = (id: number) => {
     console.log("add to bundle", id);
   };
 
-  const onDelete = (id: string) => {
+  const onDelete = (id: number) => {
     console.log("delete", id);
   };
 

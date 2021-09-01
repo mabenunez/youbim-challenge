@@ -12,20 +12,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: "20px",
     padding: "20px",
   },
-  section: {
-    padding: "10px",
+  bundle: {
+    margin: '25px 0'
   },
   title: {
     margin: "0 10px 10px 10px",
     fontWeight: "bold",
     color: "rgb(45 45 45)",
-  },
-  formField: {
-    marginBottom: "20px",
-  },
-  radioButtons: {
-    display: "flex",
-    flexDirection: "row",
   },
 }));
 
@@ -33,15 +26,55 @@ function ReleaseBundles() {
   const classes = useStyles();
   const bundleState = useContext(ItemsContext);
 
+  const onDelete = (id: number) => {
+    console.log("delete bundle");
+  };
+
   return (
     <Paper square elevation={0} className={classes.paper}>
-      <Grid>
-          <Typography className={classes.title}>Available Items</Typography>
-        
-      </Grid>
+      <Typography className={classes.title}>Currently Bundled</Typography>
+      {bundleState.bundles.length > 0 &&
+        bundleState.bundles.map((bundle) => {
+          return (
+            <article key={bundle.id} className={classes.bundle}>
+              <Grid container justify="space-between" alignItems="center">
+                <Grid item>
+                  <Typography className={classes.title}>
+                    {bundle.name}
+                  </Typography>
+                  <Typography className={classes.title}>
+                    {/* {bundle.itemsBundled} reduce sum prices*/}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button color="primary">Print</Button>
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    size="small"
+                    disableElevation
+                    onClick={() => onDelete(bundle.id)}
+                  >
+                    Delete
+                  </Button>
+                </Grid>
+              </Grid>
+              {bundle.itemsBundled.length > 0 &&
+                bundle.itemsBundled.map((item) => {
+                  return (
+                    <ItemCard
+                      cardTitle={item.code.toUpperCase()}
+                      info={item.description}
+                      price={item.price}
+                      type={item.type}
+                    ></ItemCard>
+                  );
+                })}
+            </article>
+          );
+        })}
     </Paper>
   );
 }
 
 export default ReleaseBundles;
-

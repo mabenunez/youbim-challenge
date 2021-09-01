@@ -9,7 +9,8 @@ import { BrowserRouter } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   background: {
     backgroundColor: "rgba(240, 242, 245, 1)",
-    height: "100vh",
+    position: 'relative',
+    minHeight: '100vh',
   },
   paper: {
     margin: "20px",

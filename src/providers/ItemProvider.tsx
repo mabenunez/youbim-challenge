@@ -13,12 +13,18 @@ export type Item = {
   order: number;
   firstLevel: boolean;
   parent: string | undefined;
-  id: string;
+  id: number;
+};
+
+export type Bundle = {
+  itemsBundled: Array<Item>;
+  name: string;
+  id: number;
 };
 
 export type ItemsContextValue = {
   items: Array<Item> | [];
-  bundles: Array<Item> | [];
+  bundles: Array<Bundle> | [];
   setItems: (state: Item) => void;
 };
 
@@ -31,14 +37,14 @@ export const ItemsContext = createContext<ItemsContextValue>({
 
 type State = {
   items: Array<Item> | [];
-  bundles: Array<Item> | [];
+  bundles: Array<Bundle> | [];
 };
 
 type Props = {
   children: ReactNode;
 };
 
-export const bundle1 = [
+export const arraydeitems = [
   {
     code: "1",
     description: "esta es la descripcion de ",
@@ -47,7 +53,7 @@ export const bundle1 = [
     order: 1,
     firstLevel: true,
     parent: undefined,
-    id: "1",
+    id: 1,
   },
   {
     code: "2",
@@ -57,7 +63,7 @@ export const bundle1 = [
     order: 2,
     firstLevel: false,
     parent: "1",
-    id: "2",
+    id: 2,
   },
   {
     code: "3",
@@ -67,7 +73,20 @@ export const bundle1 = [
     order: 3,
     firstLevel: true,
     parent: undefined,
-    id: "3",
+    id: 3,
+  },
+];
+
+const bundles = [
+  {
+    itemsBundled: arraydeitems,
+    name: "bundle A",
+    id: 1,
+  },
+  {
+    itemsBundled: arraydeitems,
+    name: "bundle B",
+    id: 2,
   },
 ];
 
@@ -75,7 +94,7 @@ function ItemProviderComponent(props: Props) {
   const [state, setState] = useState<State>({
     items: [],
     // bundles: [],
-    bundles: bundle1
+    bundles: bundles,
   });
 
   const setItems = (item: Item) => {
