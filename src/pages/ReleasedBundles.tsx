@@ -27,7 +27,7 @@ function ReleaseBundles() {
   const bundleState = useContext(ItemsContext);
 
   const onDelete = (id: number) => {
-    console.log("delete bundle");
+    bundleState.deleteBundle(id)
   };
 
   return (
@@ -43,7 +43,6 @@ function ReleaseBundles() {
                     {bundle.name}
                   </Typography>
                   <Typography className={classes.title}>
-                    {/* {bundle.itemsBundled} reduce sum prices*/}
                   </Typography>
                 </Grid>
                 <Grid item>
@@ -63,6 +62,7 @@ function ReleaseBundles() {
                 bundle.itemsBundled.map((item) => {
                   return (
                     <ItemCard
+                      key={item.id}
                       cardTitle={item.code.toUpperCase()}
                       info={item.description}
                       price={item.price}

@@ -26,13 +26,17 @@ export type ItemsContextValue = {
   items: Array<Item> | [];
   bundles: Array<Bundle> | [];
   setItems: (state: Item) => void;
+  deleteItem: (id: number) => void;
+  deleteBundle: (id: number) => void;
 };
 
 // shape of the object
 export const ItemsContext = createContext<ItemsContextValue>({
   items: [],
   bundles: [],
-  setItems: (item: Item) => [],
+  setItems: (item: Item) => {},
+  deleteItem: (id: number) => {},
+  deleteBundle: (id: number) => {}
 });
 
 type State = {
@@ -44,57 +48,56 @@ type Props = {
   children: ReactNode;
 };
 
-export const arraydeitems = [
-  {
-    code: "1",
-    description: "esta es la descripcion de ",
-    price: 1,
-    type: TypeOptions.single,
-    order: 1,
-    firstLevel: true,
-    parent: undefined,
-    id: 1,
-  },
-  {
-    code: "2",
-    description: "esta es la descripcion de ",
-    price: 2,
-    type: TypeOptions.single,
-    order: 2,
-    firstLevel: false,
-    parent: "1",
-    id: 2,
-  },
-  {
-    code: "3",
-    description: "esta es la descripcion de ",
-    price: 3,
-    type: TypeOptions.single,
-    order: 3,
-    firstLevel: true,
-    parent: undefined,
-    id: 3,
-  },
-];
+//const itemsMock = [
+//   {
+//     code: "1",
+//     description: "esta es la descripcion de ",
+//     price: 1,
+//     type: TypeOptions.single,
+//     order: 1,
+//     firstLevel: true,
+//     parent: undefined,
+//     id: 1,
+//   },
+//   {
+//     code: "2",
+//     description: "esta es la descripcion de ",
+//     price: 2,
+//     type: TypeOptions.single,
+//     order: 2,
+//     firstLevel: false,
+//     parent: "1",
+//     id: 2,
+//   },
+//   {
+//     code: "3",
+//     description: "esta es la descripcion de ",
+//     price: 3,
+//     type: TypeOptions.single,
+//     order: 3,
+//     firstLevel: true,
+//     parent: undefined,
+//     id: 3,
+//   },
+// ];
 
-const bundles = [
-  {
-    itemsBundled: arraydeitems,
-    name: "bundle A",
-    id: 1,
-  },
-  {
-    itemsBundled: arraydeitems,
-    name: "bundle B",
-    id: 2,
-  },
-];
+// const bundlesMock = [
+//   {
+//     itemsBundled: arraydeitems,
+//     name: "bundle A",
+//     id: 1,
+//   },
+//   {
+//     itemsBundled: arraydeitems,
+//     name: "bundle B",
+//     id: 2,
+//   },
+// ];
 
 function ItemProviderComponent(props: Props) {
   const [state, setState] = useState<State>({
     items: [],
-    // bundles: [],
-    bundles: bundles,
+    bundles: [],
   });
 
   const setItems = (item: Item) => {
@@ -104,12 +107,34 @@ function ItemProviderComponent(props: Props) {
     });
   };
 
+  const deleteItem = (id: number) => {
+    const updatedArray = state.items.filter(
+      (item: Item) => item.id !== id,
+  );
+    setState({
+      ...state,
+      items:  updatedArray,
+    });
+  };
+
+  const deleteBundle = (id: number) => {
+    const updatedArray = state.bundles.filter(
+      (item: Bundle) => item.id !== id,
+  );
+    setState({
+      ...state,
+      bundles:  updatedArray,
+    });
+  };
+
   return (
     <ItemsContext.Provider
       value={{
         items: state.items,
         bundles: state.bundles,
         setItems: setItems,
+        deleteItem: deleteItem,
+        deleteBundle: deleteBundle
       }}
     >
       {props.children}

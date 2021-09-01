@@ -3,7 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import ItemCard from "components/ItemCard/ItemCard";
-import { ItemsContext, TypeOptions } from "providers/ItemProvider";
+import { Item, ItemsContext, TypeOptions } from "providers/ItemProvider";
 import CreateItemsForm, { FieldNames, FormFields } from "pages/CreateItemsForm";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,23 +28,38 @@ function CreateItems() {
   const itemsState = useContext(ItemsContext);
 
   const onDelete = (id: number) => {
-    console.log("delete", id);
+    itemsState.deleteItem(id)
   };
 
-  const handleSubmit = (formValues: FormFields ) => {
-    console.log(formValues);
+  const handleSubmit = (formValues: FormFields) => {
+    const newItem: Item = {
+      code: formValues.code,
+      description: formValues.description,
+      price: formValues.price as number,
+      type: formValues.type,
+      order: 0,
+      firstLevel: true,
+      parent: undefined,
+      id: Math.floor(Math.random() * 100),
+    };
+
+    itemsState.setItems(newItem);
   };
   return (
     <Paper square elevation={0} className={classes.paper}>
       <Grid container>
         <Grid item lg={6} md={6} sm={12} className={classes.section}>
-          <CreateItemsForm formValues={initialFormValues} handleSubmit={handleSubmit}/>
+          <CreateItemsForm
+            formValues={initialFormValues}
+            handleSubmit={handleSubmit}
+          />
         </Grid>
         <Grid item lg={6} md={6} sm={12} className={classes.section}>
           {itemsState.items.length > 0 &&
             itemsState.items.map((item) => {
               return (
                 <ItemCard
+                  key={item.id}
                   cardTitle={item.code.toUpperCase()}
                   onDelete={() => onDelete(item.id)}
                   info={item.description}
