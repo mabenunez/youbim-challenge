@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
   formField: {
     marginBottom: "20px",
+    width: '100%',
   },
   radioButtons: {
     display: "flex",
@@ -94,7 +95,6 @@ function CreateItemsForm(props: Props) {
               name={FieldNames.price}
               label="Price"
               variant="outlined"
-              fullWidth
               as={CustomTextField}
             />
             <Field
@@ -103,6 +103,10 @@ function CreateItemsForm(props: Props) {
               name={FieldNames.type}
               label="Type"
               fullWidth
+              controls={[
+                { value: TypeOptions.single, label: 'Single' },
+                { value: TypeOptions.multiple, label: 'Multiple' }
+              ]}
               as={FormikRadioButton}
             />
             <Button
@@ -110,6 +114,7 @@ function CreateItemsForm(props: Props) {
               variant="contained"
               type="submit"
               onClick={() => handleSubmit}
+              disabled={!isValid}
             >
               Create Item
             </Button>
